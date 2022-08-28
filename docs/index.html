@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<title>CORSチェッカー</title>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta property="og:title" content="CORSチェッカー" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="" />
+<meta property="og:description" content="CORSを調べることができます。" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CORSチェッカー" />
+<meta name="twitter:image" content="" />
+<meta name="twitter:description" content="CORSを調べることができます。" />
+<meta name="author" content="仁志">
+<meta name="keywords" content="CORS,fetch"/>
+<style>
+
+  #button{
+    background: blue;
+    color: #fff;
+    padding: 10px;
+  }
+  #text_box{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 0 15px 0;
+  }
+  footer{
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+  }
+
+</style>
+</head>
+
+<script type="text/javascript">
+  function check_cors() {
+    const text_value = text_box.value;
+
+    fetch(text_value)
+      .then(response => {
+        result.innerHTML = response.ok + "<br>";
+        result.innerHTML += response.status + "<br>";
+
+      })
+      .then(() => {
+        result.innerHTML += "CORS成功！";
+      })
+      .catch((error) => {
+        result.innerHTML = error;
+
+      });
+
+  }
+</script>
+
+<body>
+  <h1>CORS CHECKER</h1>
+  <input type="text" id="text_box"><br><br>
+  <span id="button" onclick="check_cors()">check</span>
+
+  <div id="result"></div>
+
+
+  <footer>
+  &copy; hitoshi、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC BY 4.0</a>
+</footer>
+
+
+</body>
+
+</html>
