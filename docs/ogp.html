@@ -1,0 +1,59 @@
+<html>
+
+
+<head>
+    <title>OGP チェッカー</title>
+    <style>
+
+          #button{
+    background: blue;
+    color: #fff;
+    padding: 10px;
+    margin-left: 10px;
+  }
+    </style>
+
+<script>
+
+function check_ogp(){
+const url = text_box.value;
+
+let value = "";
+
+fetch(url).then(res => res.text()).then(text => {
+    const el = new DOMParser().parseFromString(text, "text/html");
+    const headEls = (el.head.children);
+    Array.from(headEls).map(v => {
+        const prop = v.getAttribute('property');
+        if (!prop) return;
+        value += v.getAttribute("content") + ",";
+        console.log(prop, v.getAttribute("content"));
+    })
+
+    value = value.split(",");
+
+    console.log(value[0]);
+
+
+ogp_text.innerHTML = '{{< card url="' + value[0] + '" img="' + value[3] + '" title="' + value[1] + '" >}}<br><br>' + value[2] + '<br><br>{{< /card >}}';
+
+});
+
+};
+
+
+</script>
+
+</head>
+
+<body>
+
+  <h1>OGP CHECKER</h1>
+  <input type="text" id="text_box"><span id="button" onclick="check_ogp()">check</span><br><br>
+
+<div id="ogp_text"></div>
+
+
+
+</body>
+</html>
